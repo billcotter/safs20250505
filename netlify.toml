@@ -40,12 +40,12 @@
 # Cache configuration
 [[build.cache]]
   path = ".next/cache"
-  ttl = 7d
+  ttl = "7d"
 
 [[build.cache]]
   path = "node_modules/.cache"
-  ttl = 7d
+  ttl = "7d"
 
 [[build.cache]]
   path = ".pnpm-store"
-  ttl = 7d 
+  ttl = "7d" 
