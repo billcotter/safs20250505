@@ -2,43 +2,139 @@ import { PageHero } from "@/components/page-hero"
 import { NewsArticle } from "@/components/news-article"
 import { NewsSidebar } from "@/components/news-sidebar"
 import { Pagination } from "@/components/pagination"
+import { NewsTagClient } from '@/components/news-tag-client';
 
-export default function NewsTagPage({ params }: { params: { slug: string } }) {
-  // Format the tag name for display
-  const tagName = params.slug
-    .split("-")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ")
+// This would normally come from a database or API
+const getTagData = (slug: string) => {
+  // Sample tag data
+  const tags = {
+    'events': {
+      title: 'Events',
+      description: 'Latest news and updates about cinema events, festivals, and special screenings.',
+      articles: [
+        {
+          title: 'New Cinema Opening in Downtown',
+          category: 'EVENTS',
+          date: 'March 15, 2024',
+          image: '/images/classic-film-san-francisco.jpg',
+          excerpt: 'We are thrilled to announce the opening of our new cinema location in downtown...',
+          slug: 'new-cinema-opening',
+        },
+        {
+          title: 'Annual Classic Film Festival Announced',
+          category: 'EVENTS',
+          date: 'March 10, 2024',
+          image: '/images/classic-film-couple.jpg',
+          excerpt: 'Mark your calendars for our annual Classic Film Festival...',
+          slug: 'classic-film-festival',
+        },
+        {
+          title: 'Special Screening of Classic Noir Films',
+          category: 'EVENTS',
+          date: 'February 20, 2024',
+          image: '/images/classic-film-smoking.jpg',
+          excerpt: 'Join us for a special screening series of classic film noir masterpieces...',
+          slug: 'special-screening',
+        },
+      ],
+    },
+    'classic-films': {
+      title: 'Classic Films',
+      description: 'News and articles about classic films, restoration projects, and film history.',
+      articles: [
+        {
+          title: 'Major Film Restoration Project Completed',
+          category: 'NEWS',
+          date: 'March 5, 2024',
+          image: '/images/classic-film-investigation.jpg',
+          excerpt: 'Our team has completed the restoration of several classic films from the 1950s...',
+          slug: 'film-restoration',
+        },
+        {
+          title: 'Annual Classic Film Festival Announced',
+          category: 'EVENTS',
+          date: 'March 10, 2024',
+          image: '/images/classic-film-couple.jpg',
+          excerpt: 'Mark your calendars for our annual Classic Film Festival...',
+          slug: 'classic-film-festival',
+        },
+        {
+          title: 'Special Screening of Classic Noir Films',
+          category: 'EVENTS',
+          date: 'February 20, 2024',
+          image: '/images/classic-film-smoking.jpg',
+          excerpt: 'Join us for a special screening series of classic film noir masterpieces...',
+          slug: 'special-screening',
+        },
+      ],
+    },
+    'community': {
+      title: 'Community',
+      description: 'Updates about our community programs, educational initiatives, and local partnerships.',
+      articles: [
+        {
+          title: 'Cinema Launches Community Outreach Program',
+          category: 'NEWS',
+          date: 'February 28, 2024',
+          image: '/images/classic-film-bartender.jpg',
+          excerpt: 'We're excited to announce our new community outreach program...',
+          slug: 'community-outreach',
+        },
+      ],
+    },
+    'technology': {
+      title: 'Technology',
+      description: 'Latest developments in film technology, restoration techniques, and cinema equipment.',
+      articles: [
+        {
+          title: 'Major Film Restoration Project Completed',
+          category: 'NEWS',
+          date: 'March 5, 2024',
+          image: '/images/classic-film-investigation.jpg',
+          excerpt: 'Our team has completed the restoration of several classic films from the 1950s...',
+          slug: 'film-restoration',
+        },
+      ],
+    },
+  };
 
-  return (
-    <main className="min-h-screen bg-black text-white">
-      <PageHero subtitle="TAG" title={tagName} backgroundImage="/placeholder.svg?key=8glzg" />
+  // If the tag doesn't exist, return a default template
+  if (!tags[slug as keyof typeof tags]) {
+    return {
+      title: slug
+        .split('-')
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' '),
+      description: 'Articles tagged with ' + slug,
+      articles: [],
+    };
+  }
 
-      <div className="container mx-auto px-4 py-8">
-        <div className="flex flex-col lg:flex-row gap-8">
-          <div className="w-full lg:w-2/3">
-            <NewsArticle
-              image="/placeholder.svg?key=nt4yq"
-              category="AWARDS, WHAT'S HOT"
-              title="Marine corp 2 picks up BAFTA"
-              excerpt="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat [...]"
-            />
+  return tags[slug as keyof typeof tags];
+};
 
-            <NewsArticle
-              image="/placeholder.svg?key=wez8t"
-              category="COMING SOON, NEW RELEASES"
-              title="News releases of 2018"
-              excerpt="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat [...]"
-            />
+interface PageProps {
+  params: {
+    slug: string;
+  };
+  searchParams: { [key: string]: string | string[] | undefined };
+}
 
-            <Pagination />
-          </div>
+// Generate static paths for all news tag slugs
+export async function generateStaticParams() {
+  const slugs = [
+    'events',
+    'classic-films',
+    'community',
+    'technology',
+  ];
 
-          <div className="w-full lg:w-1/3">
-            <NewsSidebar />
-          </div>
-        </div>
-      </div>
-    </main>
-  )
+  return slugs.map((slug) => ({
+    slug,
+  }));
+}
+
+export default async function NewsTagPage({ params }: PageProps) {
+  const tag = getTagData(params.slug);
+  return <NewsTagClient tag={tag} />;
 }
