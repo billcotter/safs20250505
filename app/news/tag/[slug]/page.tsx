@@ -1,7 +1,3 @@
-import { PageHero } from "@/components/page-hero"
-import { NewsArticle } from "@/components/news-article"
-import { NewsSidebar } from "@/components/news-sidebar"
-import { Pagination } from "@/components/pagination"
 import { NewsTagClient } from '@/components/news-tag-client';
 
 // This would normally come from a database or API
@@ -18,7 +14,7 @@ const getTagData = (slug: string) => {
           date: 'March 15, 2024',
           image: '/images/classic-film-san-francisco.jpg',
           excerpt: 'We are thrilled to announce the opening of our new cinema location in downtown...',
-          slug: 'new-cinema-opening',
+          slug: 'new-cinema-opening'
         },
         {
           title: 'Annual Classic Film Festival Announced',
@@ -26,7 +22,7 @@ const getTagData = (slug: string) => {
           date: 'March 10, 2024',
           image: '/images/classic-film-couple.jpg',
           excerpt: 'Mark your calendars for our annual Classic Film Festival...',
-          slug: 'classic-film-festival',
+          slug: 'classic-film-festival'
         },
         {
           title: 'Special Screening of Classic Noir Films',
@@ -34,9 +30,9 @@ const getTagData = (slug: string) => {
           date: 'February 20, 2024',
           image: '/images/classic-film-smoking.jpg',
           excerpt: 'Join us for a special screening series of classic film noir masterpieces...',
-          slug: 'special-screening',
-        },
-      ],
+          slug: 'special-screening'
+        }
+      ]
     },
     'classic-films': {
       title: 'Classic Films',
@@ -48,7 +44,7 @@ const getTagData = (slug: string) => {
           date: 'March 5, 2024',
           image: '/images/classic-film-investigation.jpg',
           excerpt: 'Our team has completed the restoration of several classic films from the 1950s...',
-          slug: 'film-restoration',
+          slug: 'film-restoration'
         },
         {
           title: 'Annual Classic Film Festival Announced',
@@ -56,7 +52,7 @@ const getTagData = (slug: string) => {
           date: 'March 10, 2024',
           image: '/images/classic-film-couple.jpg',
           excerpt: 'Mark your calendars for our annual Classic Film Festival...',
-          slug: 'classic-film-festival',
+          slug: 'classic-film-festival'
         },
         {
           title: 'Special Screening of Classic Noir Films',
@@ -64,9 +60,9 @@ const getTagData = (slug: string) => {
           date: 'February 20, 2024',
           image: '/images/classic-film-smoking.jpg',
           excerpt: 'Join us for a special screening series of classic film noir masterpieces...',
-          slug: 'special-screening',
-        },
-      ],
+          slug: 'special-screening'
+        }
+      ]
     },
     'community': {
       title: 'Community',
@@ -78,9 +74,9 @@ const getTagData = (slug: string) => {
           date: 'February 28, 2024',
           image: '/images/classic-film-bartender.jpg',
           excerpt: 'We're excited to announce our new community outreach program...',
-          slug: 'community-outreach',
-        },
-      ],
+          slug: 'community-outreach'
+        }
+      ]
     },
     'technology': {
       title: 'Technology',
@@ -92,10 +88,10 @@ const getTagData = (slug: string) => {
           date: 'March 5, 2024',
           image: '/images/classic-film-investigation.jpg',
           excerpt: 'Our team has completed the restoration of several classic films from the 1950s...',
-          slug: 'film-restoration',
-        },
-      ],
-    },
+          slug: 'film-restoration'
+        }
+      ]
+    }
   };
 
   // If the tag doesn't exist, return a default template
@@ -106,7 +102,7 @@ const getTagData = (slug: string) => {
         .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
         .join(' '),
       description: 'Articles tagged with ' + slug,
-      articles: [],
+      articles: []
     };
   }
 
@@ -126,11 +122,11 @@ export async function generateStaticParams() {
     'events',
     'classic-films',
     'community',
-    'technology',
+    'technology'
   ];
 
   return slugs.map((slug) => ({
-    slug,
+    slug
   }));
 }
 
