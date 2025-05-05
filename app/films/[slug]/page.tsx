@@ -249,11 +249,14 @@ const getFilmData = (slug: string) => {
   return films[slug as keyof typeof films];
 };
 
-export default function FilmDetailPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
+interface PageProps {
+  params: {
+    slug: string;
+  };
+  searchParams: { [key: string]: string | string[] | undefined };
+}
+
+export default async function FilmDetailPage({ params }: PageProps) {
   const film = getFilmData(params.slug);
   return <FilmDetailClient film={film} />;
 }
