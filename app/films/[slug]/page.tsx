@@ -256,6 +256,22 @@ interface PageProps {
   searchParams: { [key: string]: string | string[] | undefined };
 }
 
+// Generate static paths for all film slugs
+export async function generateStaticParams() {
+  const slugs = [
+    'the-end-of-days',
+    'locked-in',
+    'daylight',
+    'behind-enemy-lines',
+    'chance-encounter',
+    'the-directors-cut',
+  ];
+
+  return slugs.map((slug) => ({
+    slug,
+  }));
+}
+
 export default async function FilmDetailPage({ params }: PageProps) {
   const film = getFilmData(params.slug);
   return <FilmDetailClient film={film} />;
