@@ -6,7 +6,6 @@ const nextConfig = {
   reactStrictMode: true,
   // Configure images
   images: {
-    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',
@@ -18,7 +17,8 @@ const nextConfig = {
   trailingSlash: true,
   // TypeScript configuration
   typescript: {
-    ignoreBuildErrors: true,
+    // Remove ignoreBuildErrors for production
+    ignoreBuildErrors: false,
   },
   // Experimental features
   experimental: {
