@@ -1,6 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
+  // Enable static optimization
+  swcMinify: true,
+  // Enable React strict mode
+  reactStrictMode: true,
+  // Configure images
   images: {
     unoptimized: true,
     remotePatterns: [
@@ -10,10 +14,13 @@ const nextConfig = {
       },
     ],
   },
+  // Enable trailing slashes for better SEO
   trailingSlash: true,
+  // TypeScript configuration
   typescript: {
     ignoreBuildErrors: true,
   },
+  // Experimental features
   experimental: {
     optimizeCss: true,
     optimizePackageImports: [
@@ -46,6 +53,7 @@ const nextConfig = {
       '@radix-ui/react-tooltip',
     ],
   },
+  // Webpack optimization
   webpack: (config, { dev, isServer }) => {
     // Optimize production builds
     if (!dev && !isServer) {

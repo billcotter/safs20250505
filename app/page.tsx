@@ -47,9 +47,9 @@ const heroSlides = [
   },
 ]
 
-export default function Home() {
+export default async function Home() {
   return (
-    <main className="min-h-screen bg-black text-white">
+    <>
       <ErrorBoundary
         fallback={
           <div className="h-[70vh] flex items-center justify-center bg-gray-900">
@@ -113,6 +113,6 @@ export default function Home() {
           </ErrorBoundary>
         </div>
       </div>
-    </main>
+    </>
   )
 }
